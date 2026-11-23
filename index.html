@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenIV Loader & Bhai Ultra Trainer | GTA V Android</title>
+  <meta name="description" content="Установка модов, аддонов и спавн кастомных машин в GTA V Android без Root прав через Shizuku. Встроенный трейнер, редактор RPF и поддержка папки mods/.">
+  <meta name="keywords" content="GTA V Android, OpenIV, Shizuku, GTA 5 Android mods, Bhai Trainer, Menyoo Android, add-on cars">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="img/app_icon.png">
+  
+  <!-- Tailwind CSS via Google CDN / Fallback -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+            },
+            dark: {
+              bg: '#0a0a0f',
+              surface: '#12121a',
+              card: '#181824',
+              border: 'rgba(255, 255, 255, 0.08)',
+            }
+          },
+          fontFamily: {
+            sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom glow effects & scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #272738;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f59e0b;
+    }
+    .glow-amber {
+      box-shadow: 0 0 50px -10px rgba(245, 158, 11, 0.25);
+    }
+    .glow-card:hover {
+      box-shadow: 0 0 30px -5px rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+    }
+    .glass {
+      background: rgba(18, 18, 26, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+  </style>
+</head>
+
+<body class="bg-[#0a0a0f] text-gray-100 font-sans antialiased selection:bg-amber-500 selection:text-black min-h-screen flex flex-col justify-between">
+
+  <!-- ========================================================================= -->
+  <!-- NAVBAR -->
+  <!-- ========================================================================= -->
+  <nav class="sticky top-0 z-50 glass border-b border-white/5 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 to-amber-400 p-[1px] shadow-lg shadow-amber-500/20 group-hover:shadow-amber-500/40 transition-all overflow-hidden shrink-0">
+            <img src="img/app_icon.png" alt="OpenIV Logo" class="w-full h-full object-cover rounded-xl">
+          </div>
+          <div class="flex flex-col">
+            <span class="font-extrabold tracking-wider text-base text-white group-hover:text-amber-400 transition-colors">
+              OpenIV <span class="text-amber-500">Loader</span>
+            </span>
+            <span class="text-[10px] tracking-widest uppercase text-gray-400 font-semibold">GTA V Android • v2.4</span>
+          </div>
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+          <a href="#features" class="hover:text-amber-400 transition-colors" data-i18n="nav_features">Возможности</a>
+          <a href="#trainer-features" class="hover:text-amber-400 transition-colors" data-i18n="nav_trainer">Трейнер</a>
+          <a href="#screenshots" class="hover:text-amber-400 transition-colors" data-i18n="nav_screenshots">Скриншоты</a>
+          <a href="#install" class="hover:text-amber-400 transition-colors" data-i18n="nav_install">Установка</a>
+          <a href="#faq" class="hover:text-amber-400 transition-colors" data-i18n="nav_faq">FAQ</a>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
+          <!-- Language Toggle -->
+          <button id="langToggle" class="px-2.5 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-semibold hover:bg-white/10 text-gray-200 transition-all flex items-center gap-1.5 cursor-pointer">
+            <span id="langFlag">🇷🇺</span>
+            <span id="langText">RU</span>
+          </button>
+
+          <!-- Download Button -->
+          <a href="OpenIVLoader.apk" download class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-bold text-xs uppercase tracking-wider shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 transform hover:-translate-y-0.5 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+            <span data-i18n="btn_download">Скачать APK</span>
+          </a>
+
+          <!-- Mobile Hamburger -->
+          <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg bg-white/5 text-gray-300 hover:text-white" aria-label="Toggle menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-white/5 bg-[#12121a] px-4 pt-3 pb-6 space-y-3">
+      <a href="#features" class="block py-2 text-sm text-gray-300 hover:text-amber-400" data-i18n="nav_features">Возможности</a>
+      <a href="#trainer-features" class="block py-2 text-sm text-gray-300 hover:text-amber-400" data-i18n="nav_trainer">Трейнер</a>
+      <a href="#screenshots" class="block py-2 text-sm text-gray-300 hover:text-amber-400" data-i18n="nav_screenshots">Скриншоты</a>
+      <a href="#install" class="block py-2 text-sm text-gray-300 hover:text-amber-400" data-i18n="nav_install">Установка</a>
+      <a href="#faq" class="block py-2 text-sm text-gray-300 hover:text-amber-400" data-i18n="nav_faq">FAQ</a>
+      <a href="OpenIVLoader.apk" download class="block text-center w-full py-2.5 rounded-xl bg-amber-500 text-black font-bold text-xs uppercase" data-i18n="btn_download_mobile">Скачать APK (922 KB)</a>
+    </div>
+  </nav>
+
+
+  <!-- ========================================================================= -->
+  <!-- HERO SECTION -->
+  <!-- ========================================================================= -->
+  <header class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 overflow-hidden">
+    <!-- Hero Background Image with Atmospheric Gradient Overlays -->
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      <img src="img/hero_bg.jpg" alt="GTA V Background" class="w-full h-full object-cover object-center filter brightness-[0.42] contrast-[1.15]">
+      <div class="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/85 via-[#0a0a0f]/65 to-[#0a0a0f]"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a0f]/60 via-transparent to-[#0a0a0f]/60"></div>
+    </div>
+
+    <!-- Ambient Radial Glow -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[380px] bg-gradient-to-tr from-amber-600/25 to-orange-500/15 blur-[130px] rounded-full pointer-events-none z-0"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      
+      <!-- Pill Badge -->
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-semibold mb-6 animate-pulse">
+        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+        <span data-i18n="hero_pill">100% БЕЗ ROOT ПРАВ • ПОДДЕРЖКА SHIZUKU • ANDROID 11–15+</span>
+      </div>
+
+      <!-- Main Title -->
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-white max-w-4xl mx-auto leading-tight sm:leading-none mb-6">
+        <span data-i18n="hero_title_1">Моды и Add-On машины</span><br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-orange-500" data-i18n="hero_title_2">в GTA V Android</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-xl text-gray-300 max-w-2xl mx-auto font-normal leading-relaxed mb-10" data-i18n="hero_desc">
+        Полноценный загрузчик модов с поддержкой папки <code class="text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">mods/</code> без изменения исходных архивов игры и плавающим внутриигровым трейнером <b>Bhai Ultra Trainer</b>. Ваши оригинальные файлы игры никогда не повреждаются!
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto mb-16">
+        <a href="OpenIVLoader.apk" download class="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-extrabold text-sm uppercase tracking-wider shadow-xl shadow-amber-500/25 hover:shadow-amber-500/40 transform hover:-translate-y-0.5 transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          <span data-i18n="hero_btn_apk">Скачать OpenIVLoader.apk</span>
+        </a>
+        <a href="#install" class="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-sm tracking-wide transition-all">
+          <span data-i18n="hero_btn_guide">Инструкция по шагам</span>
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </a>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto pt-6 border-t border-white/5">
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-400">0%</div>
+          <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="metric_1">Без вмешательства в APK</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-400">mods/</div>
+          <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="metric_2">Изолированная папка модов</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-400">16+</div>
+          <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="metric_3">Категорий транспорта</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+          <div class="text-2xl sm:text-3xl font-black text-amber-400">100%</div>
+          <div class="text-xs text-gray-400 font-medium mt-1" data-i18n="metric_4">Сохранение списка машин</div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ========================================================================= -->
+  <!-- TRAINER CAPABILITIES SHOWCASE -->
+  <!-- ========================================================================= -->
+  <section id="trainer-features" class="py-16 sm:py-24 bg-[#0d0e15] border-y border-white/5 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-amber-400 text-xs uppercase font-extrabold tracking-widest" data-i18n="trainer_badge">Встроенный трейнер</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2" data-i18n="trainer_title">Возможности Bhai Ultra Trainer</h2>
+        <p class="text-gray-400 text-sm mt-3 leading-relaxed" data-i18n="trainer_desc">
+          Полноценный внутриигровой оверлей, вдохновленный PC-трейнерами вроде Menyoo, доступный прямо во время игры в один тап.
+        </p>
+      </div>
+
+      <!-- Capabilities Grid (4 Columns) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Card 1: Vehicles & Spawner -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl shrink-0">
+                🚗
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white" data-i18n="tf1_title">Транспорт и Спавнер</h3>
+                <span class="text-xs text-amber-400 font-mono" data-i18n="tf1_subtitle">Vehicle Spawner & Management</span>
+              </div>
+            </div>
+            <p class="text-gray-400 text-sm mb-5 leading-relaxed" data-i18n="tf1_desc">
+              Полный доступ ко всем оригинальным и добавленным транспортным средствам с мгновенным спавном перед игроком или сразу за рулем.
+            </p>
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf1_li1"><b>16 категорий оригинальных авто:</b> суперкары, спорткары, маслкары, мотоциклы, внедорожники, авиация и лодки.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf1_li2"><b>Менеджер Add-On авто:</b> сохранение собственных машин (Lada, BMW, Mercedes) с постоянным хранением на смартфоне.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf1_li3"><b>Мгновенный ремонт:</b> восстановление внешнего вида кузова и полная починка двигателя без визита в Los Santos Customs.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf1_li4"><b>Сервисные функции:</b> переворот машины на колеса (Flip Upright) и быстрая очистка ненужного транспорта.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gray-400">
+            <span data-i18n="tf1_tag">500+ Моделей транспорта</span>
+            <span class="text-amber-400 font-bold">veh [model]</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Player & Combat -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl shrink-0">
+                🧍
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white" data-i18n="tf2_title">Игрок и Арсенал</h3>
+                <span class="text-xs text-amber-400 font-mono" data-i18n="tf2_subtitle">Player, God Mode & Weapons</span>
+              </div>
+            </div>
+            <p class="text-gray-400 text-sm mb-5 leading-relaxed" data-i18n="tf2_desc">
+              Полная неуязвимость и максимальные боевые возможности для комфортного исследования открытого мира.
+            </p>
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf2_li1"><b>Режим бессмертия (God Mode):</b> полная защита от огнестрельного оружия, взрывов, падений с высоты и ДТП.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf2_li2"><b>Здоровье и броня:</b> моментальное восстановление HP и бронежилета до 100% одной кнопкой.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf2_li3"><b>Управление розыском:</b> сброс копов в 0 («Никогда не разыскивается») или мгновенное переключение на 1–5 звезд.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf2_li4"><b>Оружие и боеприпасы:</b> выдача всех типов вооружения с максимальным запасом боеприпасов.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gray-400">
+            <span data-i18n="tf2_tag">Максимальная неуязвимость</span>
+            <span class="text-amber-400 font-bold">godmode & heal</span>
+          </div>
+        </div>
+
+        <!-- Card 3: World & Weather -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl shrink-0">
+                ⛅
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white" data-i18n="tf3_title">Мир, Погода и Время</h3>
+                <span class="text-xs text-amber-400 font-mono" data-i18n="tf3_subtitle">World Environment & Time</span>
+              </div>
+            </div>
+            <p class="text-gray-400 text-sm mb-5 leading-relaxed" data-i18n="tf3_desc">
+              Тонкое управление атмосферой Лос-Сантоса: меняйте погодные эффекты и время суток прямо на лету.
+            </p>
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf3_li1"><b>Управление погодой:</b> мгновенная смена на ясную, солнечную, грозу, проливной дождь, туман или смог.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf3_li2"><b>Время суток:</b> переключение между утром, днем, закатом и полночью, а также заморозка текущего часа.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf3_li3"><b>Контроль трафика:</b> быстрая очистка дорог от застрявших машин для комфортного тестирования модов.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf3_li4"><b>Стабильность FPS:</b> оптимизированные переключения без зависаний движка и просадок кадров.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gray-400">
+            <span data-i18n="tf3_tag">Любое время & климат</span>
+            <span class="text-amber-400 font-bold">weather & time</span>
+          </div>
+        </div>
+
+        <!-- Card 4: Teleportation -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-[#14141e] border border-white/5 hover:border-amber-500/40 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl shrink-0">
+                📍
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white" data-i18n="tf4_title">Телепортация и Локации</h3>
+                <span class="text-xs text-amber-400 font-mono" data-i18n="tf4_subtitle">Teleportation & Fast Travel</span>
+              </div>
+            </div>
+            <p class="text-gray-400 text-sm mb-5 leading-relaxed" data-i18n="tf4_desc">
+              Моментальное перемещение в любую точку штата Сан-Андреас пешком или прямо вместе с автомобилем.
+            </p>
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf4_li1"><b>Телепорт по маркеру GPS:</b> поставьте точку на карте и нажмите Waypoint — мгновенный перенос в координаты.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf4_li2"><b>Популярные локации:</b> быстрый прыжок в Аэропорт LS, Пирс Дель-Перро, Гору Чилиад, Обсерваторию и др.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf4_li3"><b>Телепорт с транспортом:</b> вы остаетесь за рулем своего автомобиля при перемещении на любую дистанцию.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-amber-400 font-bold shrink-0">✓</span>
+                <span data-i18n="tf4_li4"><b>Безопасное приземление:</b> автоматическая коррекция высоты (Z-координаты), предотвращающая падение под карту.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-gray-400">
+            <span data-i18n="tf4_tag">GPS навигация</span>
+            <span class="text-amber-400 font-bold">tpwaypoint & alias</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- FEATURES SECTION -->
+  <!-- ========================================================================= -->
+  <section id="features" class="py-20 sm:py-28 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-amber-400 text-xs uppercase font-extrabold tracking-widest" data-i18n="feat_badge">Технологии & Возможности</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2" data-i18n="feat_title">Почему OpenIV Loader уникален</h2>
+        <p class="text-gray-400 text-sm mt-3" data-i18n="feat_desc">
+          Разработан специально под архитектуру Android 11–15+ с изоляцией процессов и полным соответствием стандартам OpenIV.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1 -->
+        <div class="p-6 rounded-3xl bg-white/[0.02] border border-white/5 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+              🛡️
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="f1_title">100% Non-Root через Shizuku</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="f1_desc">
+              Больше никаких рут-прав, патчей ядра или опасности окирпичить телефон. Всё управление правами и процессами выполняется через защищённый сервис Shizuku (UID 2000).
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-amber-400" data-i18n="f1_tag">UID: 2000 (shell privileged)</div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="p-6 rounded-3xl bg-white/[0.02] border border-white/5 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+              📂
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="f2_title">Поддержка папки mods/</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="f2_desc">
+              Нативная библиотека <code class="text-amber-400 text-xs">libopeniv.so</code> перенаправляет запросы игры в изолированную папку <code class="text-xs text-amber-400">mods/</code>. Оригинальный файл <code class="text-xs text-gray-300">update.rpf</code> никогда не перезаписывается.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-amber-400" data-i18n="f2_tag">Zero-Overwrite Protection</div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="p-6 rounded-3xl bg-white/[0.02] border border-white/5 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+              🚗
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="f3_title">Менеджер Add-On Машин</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="f3_desc">
+              Встроенный конструктор собственного списка машин. Вводите название и код модели (Granta, Priora, Mercedes E55) — машина сохраняется навсегда и спавнится одним нажатием.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-amber-400" data-i18n="f3_tag">custom_vehicles.txt sync</div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="p-6 rounded-3xl bg-white/[0.02] border border-white/5 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+              🎮
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="f4_title">Bhai Ultra In-Game Overlay</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="f4_desc">
+              Плавающая кнопка поверх экрана: 16 категорий транспорта, поиск по названию, мгновенный ремонт авто, переворот на колёса, бессмертие, оружие и телепорт по GPS.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-amber-400" data-i18n="f4_tag">Menyoo-Style UI Overlay</div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="p-6 rounded-3xl bg-white/[0.02] border border-white/5 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+              📦
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="f5_title">Встроенный RPF Редактор</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="f5_desc">
+              Вам больше не нужен компьютер для распаковки или редактирования файлов: просматривайте дерево файлов RPF архивов и редактируйте XML/META прямо на смартфоне.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-amber-400" data-i18n="f5_tag">Standalone RPF Parser</div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="p-6 rounded-3xl bg-white/[0.02] border border-white/5 glow-card transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-2xl mb-4">
+              ⚡
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2" data-i18n="f6_title">Чистый запуск по умолчанию</h3>
+            <p class="text-gray-400 text-sm leading-relaxed" data-i18n="f6_desc">
+              При обычном запуске GTA V со смартфона игра всегда остаётся 100% чистой и оригинальной. Моды и оверлей подключаются только при запуске через OpenIV Loader.
+            </p>
+          </div>
+          <div class="mt-4 pt-4 border-t border-white/5 text-[11px] font-mono text-amber-400" data-i18n="f6_tag">Zero-Footprint On Demand</div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- SCREENSHOTS SHOWCASE -->
+  <!-- ========================================================================= -->
+  <section id="screenshots" class="py-16 sm:py-24 bg-[#0d0e15] border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-amber-400 text-xs uppercase font-extrabold tracking-widest" data-i18n="screen_badge">Галерея в игре</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2" data-i18n="screen_title">Реальная работа модов</h2>
+        <p class="text-gray-400 text-sm mt-3" data-i18n="screen_desc">
+          Скриншоты заспавненных аддон-машин и открытого меню трейнера на мобильном порте GTA V.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Screenshot 1 -->
+        <div class="rounded-2xl overflow-hidden bg-[#181824] border border-white/10 group hover:border-amber-500/50 transition-all">
+          <div class="aspect-video w-full bg-black/40 overflow-hidden relative">
+            <img src="img/granta.png" alt="Lada Granta Spawn in GTA V Android" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+            <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-amber-400">granta</div>
+          </div>
+          <div class="p-4">
+            <div class="font-bold text-white text-sm" data-i18n="s1_title">Lada Granta FL</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="s1_sub">Кастомная модель с рабочим интерьером и повреждениями</div>
+          </div>
+        </div>
+
+        <!-- Screenshot 2 -->
+        <div class="rounded-2xl overflow-hidden bg-[#181824] border border-white/10 group hover:border-amber-500/50 transition-all">
+          <div class="aspect-video w-full bg-black/40 overflow-hidden relative">
+            <img src="img/mercedes.png" alt="Mercedes E55 AMG in GTA V Android" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+            <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-amber-400">benze55</div>
+          </div>
+          <div class="p-4">
+            <div class="font-bold text-white text-sm" data-i18n="s2_title">Mercedes-Benz E55 AMG</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="s2_sub">Аддон-пакет высокого качества (DLC dlc.rpf)</div>
+          </div>
+        </div>
+
+        <!-- Screenshot 3 -->
+        <div class="rounded-2xl overflow-hidden bg-[#181824] border border-white/10 group hover:border-amber-500/50 transition-all">
+          <div class="aspect-video w-full bg-black/40 overflow-hidden relative">
+            <img src="img/trainer_cars.png" alt="Bhai Trainer Vehicles Menu" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+            <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-amber-400">trainer: cars</div>
+          </div>
+          <div class="p-4">
+            <div class="font-bold text-white text-sm" data-i18n="s3_title">Список транспорта</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="s3_sub">16 категорий оригинальных авто и блок Add-On машин</div>
+          </div>
+        </div>
+
+        <!-- Screenshot 4 -->
+        <div class="rounded-2xl overflow-hidden bg-[#181824] border border-white/10 group hover:border-amber-500/50 transition-all">
+          <div class="aspect-video w-full bg-black/40 overflow-hidden relative">
+            <img src="img/trainer_main.png" alt="Bhai Ultra Trainer In-Game UI" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300">
+            <div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/70 text-[10px] font-mono text-amber-400">trainer: main</div>
+          </div>
+          <div class="p-4">
+            <div class="font-bold text-white text-sm" data-i18n="s4_title">Оверлей трейнера</div>
+            <div class="text-xs text-gray-400 mt-1" data-i18n="s4_sub">Быстрое меню поверх геймплея без прерывания игры</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- INSTALLATION & MODDING GUIDE (6 Complete Steps) -->
+  <!-- ========================================================================= -->
+  <section id="install" class="py-20 sm:py-28 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-amber-400 text-xs uppercase font-extrabold tracking-widest" data-i18n="inst_badge">Пошаговый гайд</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2" data-i18n="inst_title">Инструкция по установке модов</h2>
+        <p class="text-gray-400 text-sm mt-3 leading-relaxed" data-i18n="inst_desc">
+          Полное руководство по подготовке DLC архивов, настройке папки mods/ и спавну любых машин в GTA V Android.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        
+        <!-- Step 1: Start Shizuku -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-black font-black text-xl flex items-center justify-center shrink-0">
+            1
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-white mb-1" data-i18n="step1_title">Запуск службы Shizuku</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-3" data-i18n="step1_desc">
+              Установите официальное приложение <b>Shizuku</b> (из Google Play или GitHub). На Android 11+ запустите его прямо со смартфона через <b>«Беспроводную отладку»</b> (Wireless Debugging) по Wi-Fi. Нажмите в Shizuku кнопку «Запустить».
+            </p>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold" data-i18n="step1_badge">
+              ✓ Статус в Shizuku должен быть: «Shizuku запущен (UID 2000)»
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Install OpenIV Loader -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-black font-black text-xl flex items-center justify-center shrink-0">
+            2
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-white mb-1" data-i18n="step2_title">Установка OpenIV Loader</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-3" data-i18n="step2_desc">
+              Скачайте и установите <code class="text-amber-400 text-xs font-bold">OpenIVLoader.apk</code>. При первом открытии нажмите <b>«Запросить доступ Shizuku»</b> и выберите <b>«Разрешать всегда»</b>. Выдайте разрешение «Отображение поверх других приложений» для работы оверлея трейнера.
+            </p>
+            <a href="OpenIVLoader.apk" download class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 hover:bg-amber-500/20 text-xs font-bold transition-all" data-i18n="step2_btn">
+              <span>📥 Скачать OpenIVLoader.apk (922 KB)</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Step 3: Prepare Vehicle DLC (x64 -> android) -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-amber-500/30 glow-card flex flex-col sm:flex-row items-start gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 to-amber-400 text-black font-black text-xl flex items-center justify-center shrink-0 shadow-lg shadow-amber-500/20">
+            3
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-lg font-bold text-white" data-i18n="step3_title">Подготовка DLC архива машины (x64 → android)</h3>
+              <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 text-[10px] font-bold uppercase tracking-wider">Критически важно</span>
+            </div>
+            <p class="text-gray-400 text-sm leading-relaxed mb-3" data-i18n="step3_desc">
+              Скачайте архив любой машины (например, с сайта GTA5-Mods). Откройте файл <b>dlc.rpf</b> (через встроенный в лоадер RPF Редактор или OpenIV на ПК) и <b>переименуйте внутреннюю папку:</b>
+            </p>
+            
+            <!-- Visual Rename Callout -->
+            <div class="p-3.5 rounded-2xl bg-black/40 border border-white/10 flex items-center justify-center gap-3 font-mono text-sm mb-3 text-center">
+              <span class="px-3 py-1 rounded-lg bg-rose-950/60 border border-rose-500/40 text-rose-300 line-through font-bold">x64</span>
+              <span class="text-amber-400 font-bold text-lg">➔</span>
+              <span class="px-3 py-1 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 font-bold">android</span>
+            </div>
+
+            <p class="text-gray-400 text-xs leading-relaxed" data-i18n="step3_dlclist_note">
+              Затем в файле <code class="text-amber-400 text-xs">dlclist.xml</code> (расположенном внутри <code class="text-xs text-gray-300">mods/update/update.rpf/common/data/</code>) добавьте строчку с именем авто: <code class="text-amber-300 text-xs">&lt;Item&gt;dlcpacks:/delorean/&lt;/Item&gt;</code>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 4: Place files in mods/ folder -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-black font-black text-xl flex items-center justify-center shrink-0">
+            4
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-white mb-1" data-i18n="step4_title">Размещение файлов в папке mods/</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-3" data-i18n="step4_desc">
+              В любом файловом менеджере (ZArchiver) создайте папку <b>mods</b> рядом с файлами игры и поместите архив машины в каталог: <code class="text-xs text-amber-400">mods/update/android/dlcpacks/&lt;имя_машины&gt;/dlc.rpf</code>. <b>Важно:</b> имя папки (например, <code class="text-xs text-amber-300">delorean</code>) должно точно совпадать с записью в <code class="text-xs text-gray-300">dlclist.xml</code>!
+            </p>
+            
+            <!-- Code Block with Copy -->
+            <div class="relative bg-black/60 p-4 rounded-2xl border border-white/5 font-mono text-xs text-gray-300">
+              <button onclick="copyFolderStructure()" class="absolute top-3 right-3 px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-[10px] text-amber-400 transition-all cursor-pointer" id="copyBtn" data-i18n="step4_copy_btn">
+                Копировать структуру
+              </button>
+<pre id="folderTree">mods/
+├── update/
+│   ├── update.rpf               (dlclist.xml)
+│   └── android/dlcpacks/
+│       ├── delorean/dlc.rpf     (папка совпадает с dlclist.xml)
+│       └── benze55/dlc.rpf      (x64 переименован в android)
+└── common.rpf</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Fix Permissions (Conditional) -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500 text-black font-black text-xl flex items-center justify-center shrink-0">
+            5
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-white mb-1" data-i18n="step5_title">Исправление прав (если игра в Android/data)</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-3" data-i18n="step5_desc">
+              В приложении OpenIV Loader перейдите в раздел <b>«⚙️ Настройки»</b> и нажмите кнопку <b>«🔑 Исправить права (chmod 777 на mods/)»</b>. Shizuku выдаст полный доступ игре к чтению скопированных файлов.
+            </p>
+            
+            <!-- Callout Note about open directories -->
+            <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs leading-relaxed" data-i18n="step5_notice">
+              💡 <b>Важное примечание:</b> Исправлять права нужно <u>только</u> если файлы игры лежат в каталоге <code class="text-amber-200">Android/data/com.thegwchr.fuzzy</code>. Если ваша игра расположена в общедоступной папке (например, <code class="text-amber-200">/storage/emulated/0/games/gta5/game/</code>), права исправлять не требуется!
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: Launch Game & Spawn -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-white/[0.02] border border-white/10 flex flex-col sm:flex-row items-start gap-6">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500 text-black font-black text-xl flex items-center justify-center shrink-0">
+            6
+          </div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-white mb-1" data-i18n="step6_title">Запуск игры и спавн авто</h3>
+            <p class="text-gray-400 text-sm leading-relaxed mb-2" data-i18n="step6_desc">
+              В OpenIV Loader нажмите <b>«Включить моды и запустить игру»</b>. После загрузки GTA V коснитесь плавающей кнопки <b>BHAI</b> ➔ вкладка <b>МАШИНА</b> ➔ нажмите <b>«➕ УПРАВЛЕНИЕ СПИСКОМ МАШИН»</b>, введите название и код модели (например <code class="text-xs text-amber-300">delorean</code>). Нажмите на машину — она мгновенно появится перед вами!
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- FAQ SECTION -->
+  <!-- ========================================================================= -->
+  <section id="faq" class="py-16 sm:py-24 bg-[#0d0e15] border-t border-white/5">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center mb-12">
+        <span class="text-amber-400 text-xs uppercase font-extrabold tracking-widest" data-i18n="faq_badge">Ответы на вопросы</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2" data-i18n="faq_title">Часто задаваемые вопросы</h2>
+      </div>
+
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <details class="group p-5 rounded-2xl bg-[#14141e] border border-white/5 open:border-amber-500/30 transition-all">
+          <summary class="font-bold text-white text-sm sm:text-base cursor-pointer list-none flex items-center justify-between">
+            <span data-i18n="q1">Действительно ли не нужны Root-права?</span>
+            <span class="text-amber-400 text-xl font-bold group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 text-sm leading-relaxed mt-3 pt-3 border-t border-white/5" data-i18n="a1">
+            Да, на 100%! Лоадер использует системный сервис Shizuku, который исполняет команды с правами привилегированного пользователя Android Shell (UID 2000). Это абсолютно безопасно, не требует разблокировки загрузчика и не ломает Knox/банковские приложения.
+          </p>
+        </details>
+
+        <!-- FAQ 2 -->
+        <details class="group p-5 rounded-2xl bg-[#14141e] border border-white/5 open:border-amber-500/30 transition-all">
+          <summary class="font-bold text-white text-sm sm:text-base cursor-pointer list-none flex items-center justify-between">
+            <span data-i18n="q2">Могут ли повредиться оригинальные файлы игры?</span>
+            <span class="text-amber-400 text-xl font-bold group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 text-sm leading-relaxed mt-3 pt-3 border-t border-white/5" data-i18n="a2">
+            Нет. Нативная библиотека перенаправляет вызовы только во время работы лоадера. Сам файл update.rpf на диске не перезаписывается. Если запустить GTA V обычным ярлыком с экрана — запустится чистая оригинальная игра.
+          </p>
+        </details>
+
+        <!-- FAQ 3 -->
+        <details class="group p-5 rounded-2xl bg-[#14141e] border border-white/5 open:border-amber-500/30 transition-all">
+          <summary class="font-bold text-white text-sm sm:text-base cursor-pointer list-none flex items-center justify-between">
+            <span data-i18n="q3">Где сохраняется список добавленных мной машин?</span>
+            <span class="text-amber-400 text-xl font-bold group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 text-sm leading-relaxed mt-3 pt-3 border-t border-white/5" data-i18n="a3">
+            Список сохраняется во внутреннем хранилище SharedPreferences приложения и синхронно экспортируется в текстовый файл: <code class="text-amber-400 text-xs">/sdcard/Android/data/com.thegwchr.fuzzy/files/game/custom_vehicles.txt</code>. Вы можете редактировать его в любом блокноте!
+          </p>
+        </details>
+
+        <!-- FAQ 4 -->
+        <details class="group p-5 rounded-2xl bg-[#14141e] border border-white/5 open:border-amber-500/30 transition-all">
+          <summary class="font-bold text-white text-sm sm:text-base cursor-pointer list-none flex items-center justify-between">
+            <span data-i18n="q4">Поддерживаются ли файлы игры в других папках (например, games/gta5)?</span>
+            <span class="text-amber-400 text-xl font-bold group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 text-sm leading-relaxed mt-3 pt-3 border-t border-white/5" data-i18n="a4">
+            Да! Движок GTA V обращается к игровым ресурсам по относительным путям. Поэтому если рядом с вашей рабочей папкой игры находится папка mods/, все модификации автоматически подхватываются независимо от пути.
+          </p>
+        </details>
+
+        <!-- FAQ 5 (NEW: PC Cars Compatibility) -->
+        <details class="group p-5 rounded-2xl bg-[#14141e] border border-white/5 open:border-amber-500/30 transition-all">
+          <summary class="font-bold text-white text-sm sm:text-base cursor-pointer list-none flex items-center justify-between">
+            <span data-i18n="q5">Подходят ли Add-On машины с ПК-версии (с сайта GTA5-Mods)?</span>
+            <span class="text-amber-400 text-xl font-bold group-open:rotate-45 transition-transform">+</span>
+          </summary>
+          <p class="text-gray-400 text-sm leading-relaxed mt-3 pt-3 border-t border-white/5" data-i18n="a5">
+            Да, на 100%! Любая Add-On машина, созданная для ПК, полностью совместима с мобильным портом GTA V. Главное обязательное условие: внутри файла <code>dlc.rpf</code> переименуйте внутреннюю папку <code>x64</code> в <code>android</code>, скопируйте архив в <code>mods/update/android/dlcpacks/&lt;имя&gt;/dlc.rpf</code> и пропишите имя в <code>dlclist.xml</code>.
+          </p>
+        </details>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- CALL TO ACTION / DOWNLOAD FOOTER -->
+  <!-- ========================================================================= -->
+  <section class="py-16 sm:py-20 relative overflow-hidden bg-gradient-to-b from-[#0a0a0f] to-[#12121a]">
+    <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+      <h2 class="text-3xl sm:text-5xl font-black text-white mb-4" data-i18n="cta_title">
+        Готовы прокачать свою GTA V на Android?
+      </h2>
+      <p class="text-gray-400 text-base max-w-xl mx-auto mb-8" data-i18n="cta_desc">
+        Скачивайте новейшую версию OpenIV Loader & Bhai Ultra Trainer и наслаждайтесь любимыми модами прямо сейчас.
+      </p>
+
+      <a href="OpenIVLoader.apk" download class="inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-black font-black text-sm uppercase tracking-wider shadow-2xl shadow-amber-500/30 hover:shadow-amber-500/50 transform hover:-translate-y-1 transition-all">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+        <span data-i18n="cta_btn">Скачать OpenIVLoader.apk (v2.4)</span>
+      </a>
+      
+      <div class="mt-4 text-xs text-gray-500" data-i18n="cta_info">Размер: 922 КБ • Пакет: com.openiv.gtavloader</div>
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- FOOTER -->
+  <!-- ========================================================================= -->
+  <footer class="py-8 bg-[#07070b] border-t border-white/5 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-2">
+      <p data-i18n="footer_rights">OpenIV GTA V Android Loader & Bhai Ultra Trainer • 2026</p>
+      <p class="text-[11px] text-gray-600 max-w-2xl mx-auto leading-relaxed" data-i18n="footer_disclaimer">
+        GTA V является зарегистрированной торговой маркой Rockstar Games и Take-Two Interactive. Данный проект является независимой модификацией исследовательского характера и не связан с официальными правообладателями.
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT: LOCALIZATION & INTERACTIVITY -->
+  <!-- ========================================================================= -->
+  <script>
+    // -------------------------------------------------------------------------
+    // 1. Comprehensive Localization Dictionary (RU / EN)
+    // -------------------------------------------------------------------------
+    const translations = {
+      ru: {
+        nav_features: "Возможности",
+        nav_trainer: "Трейнер",
+        nav_screenshots: "Скриншоты",
+        nav_install: "Установка",
+        nav_faq: "FAQ",
+        btn_download: "Скачать APK",
+        btn_download_mobile: "Скачать APK (922 KB)",
+
+        hero_pill: "100% БЕЗ ROOT ПРАВ • ПОДДЕРЖКА SHIZUKU • ANDROID 11–15+",
+        hero_title_1: "Моды и Add-On машины",
+        hero_title_2: "в GTA V Android",
+        hero_desc: "Полноценный загрузчик модов с поддержкой папки <code class=\"text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20\">mods/</code> без изменения исходных архивов игры и плавающим внутриигровым трейнером <b>Bhai Ultra Trainer</b>. Ваши оригинальные файлы игры никогда не повреждаются!",
+        hero_btn_apk: "Скачать OpenIVLoader.apk",
+        hero_btn_guide: "Инструкция по шагам",
+
+        metric_1: "Без вмешательства в APK",
+        metric_2: "Изолированная папка модов",
+        metric_3: "Категорий транспорта",
+        metric_4: "Сохранение списка машин",
+
+        trainer_badge: "Встроенный трейнер",
+        trainer_title: "Возможности Bhai Ultra Trainer",
+        trainer_desc: "Полноценный внутриигровой оверлей, вдохновленный PC-трейнерами вроде Menyoo, доступный прямо во время игры в один тап.",
+
+        tf1_title: "Транспорт и Спавнер",
+        tf1_subtitle: "Vehicle Spawner & Management",
+        tf1_desc: "Полный доступ ко всем оригинальным и добавленным транспортным средствам с мгновенным спавном перед игроком или сразу за рулем.",
+        tf1_li1: "<b>16 категорий оригинальных авто:</b> суперкары, спорткары, маслкары, мотоциклы, внедорожники, авиация и лодки.",
+        tf1_li2: "<b>Менеджер Add-On авто:</b> сохранение собственных машин (Lada, BMW, Mercedes) с постоянным хранением на смартфоне.",
+        tf1_li3: "<b>Мгновенный ремонт:</b> восстановление внешнего вида кузова и полная починка двигателя без визита в Los Santos Customs.",
+        tf1_li4: "<b>Сервисные функции:</b> переворот машины на колеса (Flip Upright) и быстрая очистка ненужного транспорта.",
+        tf1_tag: "500+ Моделей транспорта",
+
+        tf2_title: "Игрок и Арсенал",
+        tf2_subtitle: "Player, God Mode & Weapons",
+        tf2_desc: "Полная неуязвимость и максимальные боевые возможности для комфортного исследования открытого мира.",
+        tf2_li1: "<b>Режим бессмертия (God Mode):</b> полная защита от огнестрельного оружия, взрывов, падений с высоты и ДТП.",
+        tf2_li2: "<b>Здоровье и броня:</b> моментальное восстановление HP и бронежилета до 100% одной кнопкой.",
+        tf2_li3: "<b>Управление розыском:</b> сброс копов в 0 («Никогда не разыскивается») или мгновенное переключение на 1–5 звезд.",
+        tf2_li4: "<b>Оружие и боеприпасы:</b> выдача всех типов вооружения с максимальным запасом боеприпасов.",
+        tf2_tag: "Максимальная неуязвимость",
+
+        tf3_title: "Мир, Погода и Время",
+        tf3_subtitle: "World Environment & Time",
+        tf3_desc: "Тонкое управление атмосферой Лос-Сантоса: меняйте погодные эффекты и время суток прямо на лету.",
+        tf3_li1: "<b>Управление погодой:</b> мгновенная смена на ясную, солнечную, грозу, проливной дождь, туман или смог.",
+        tf3_li2: "<b>Время суток:</b> переключение между утром, днем, закатом и полночью, а также заморозка текущего часа.",
+        tf3_li3: "<b>Контроль трафика:</b> быстрая очистка дорог от застрявших машин для комфортного тестирования модов.",
+        tf3_li4: "<b>Стабильность FPS:</b> оптимизированные переключения без зависаний движка и просадок кадров.",
+        tf3_tag: "Любое время & климат",
+
+        tf4_title: "Телепортация и Локации",
+        tf4_subtitle: "Teleportation & Fast Travel",
+        tf4_desc: "Моментальное перемещение в любую точку штата Сан-Андреас пешком или прямо вместе с автомобилем.",
+        tf4_li1: "<b>Телепорт по маркеру GPS:</b> поставьте точку на карте и нажмите Waypoint — мгновенный перенос в координаты.",
+        tf4_li2: "<b>Популярные локации:</b> быстрый прыжок в Аэропорт LS, Пирс Дель-Перро, Гору Чилиад, Обсерваторию и др.",
+        tf4_li3: "<b>Телепорт с транспортом:</b> вы остаетесь за рулем своего автомобиля при перемещении на любую дистанцию.",
+        tf4_li4: "<b>Безопасное приземление:</b> автоматическая коррекция высоты (Z-координаты), предотвращающая падение под карту.",
+        tf4_tag: "GPS навигация",
+
+        feat_badge: "Технологии & Возможности",
+        feat_title: "Почему OpenIV Loader уникален",
+        feat_desc: "Разработан специально под архитектуру Android 11–15+ с изоляцией процессов и полным соответствием стандартам OpenIV.",
+
+        f1_title: "100% Non-Root через Shizuku",
+        f1_desc: "Больше никаких рут-прав, патчей ядра или опасности окирпичить телефон. Всё управление правами и процессами выполняется через защищённый сервис Shizuku (UID 2000).",
+        f1_tag: "UID: 2000 (shell privileged)",
+
+        f2_title: "Поддержка папки mods/",
+        f2_desc: "Нативная библиотека <code class=\"text-amber-400 text-xs\">libopeniv.so</code> перенаправляет запросы игры в изолированную папку <code class=\"text-xs text-amber-400\">mods/</code>. Оригинальный файл <code class=\"text-xs text-gray-300\">update.rpf</code> никогда не перезаписывается.",
+        f2_tag: "Zero-Overwrite Protection",
+
+        f3_title: "Менеджер Add-On Машин",
+        f3_desc: "Встроенный конструктор собственного списка машин. Вводите название и код модели (Granta, Priora, Mercedes E55) — машина сохраняется навсегда и спавнится одним нажатием.",
+        f3_tag: "custom_vehicles.txt sync",
+
+        f4_title: "Bhai Ultra In-Game Overlay",
+        f4_desc: "Плавающая кнопка поверх экрана: 16 категорий транспорта, поиск по названию, мгновенный ремонт авто, переворот на колёса, бессмертие, оружие и телепорт по GPS.",
+        f4_tag: "Menyoo-Style UI Overlay",
+
+        f5_title: "Встроенный RPF Редактор",
+        f5_desc: "Вам больше не нужен компьютер для распаковки или редактирования файлов: просматривайте дерево файлов RPF архивов и редактируйте XML/META прямо на смартфоне.",
+        f5_tag: "Standalone RPF Parser",
+
+        f6_title: "Чистый запуск по умолчанию",
+        f6_desc: "При обычном запуске GTA V со смартфона игра всегда остаётся 100% чистой и оригинальной. Моды и оверлей подключаются только при запуске через OpenIV Loader.",
+        f6_tag: "Zero-Footprint On Demand",
+
+        screen_badge: "Галерея в игре",
+        screen_title: "Реальная работа модов",
+        screen_desc: "Скриншоты заспавненных аддон-машин и открытого меню трейнера на мобильном порте GTA V.",
+        s1_title: "Lada Granta FL",
+        s1_sub: "Кастомная модель с рабочим интерьером и повреждениями",
+        s2_title: "Mercedes-Benz E55 AMG",
+        s2_sub: "Аддон-пакет высокого качества (DLC dlc.rpf)",
+        s3_title: "Список транспорта",
+        s3_sub: "16 категорий оригинальных авто и блок Add-On машин",
+        s4_title: "Оверлей трейнера",
+        s4_sub: "Быстрое меню поверх геймплея без прерывания игры",
+
+        inst_badge: "Пошаговый гайд",
+        inst_title: "Инструкция по установке модов",
+        inst_desc: "Полное руководство по подготовке DLC архивов, настройке папки mods/ и спавну любых машин в GTA V Android.",
+
+        step1_title: "Запуск службы Shizuku",
+        step1_desc: "Установите официальное приложение <b>Shizuku</b> (из Google Play или GitHub). На Android 11+ запустите его прямо со смартфона через <b>«Беспроводную отладку»</b> (Wireless Debugging) по Wi-Fi. Нажмите в Shizuku кнопку «Запустить».",
+        step1_badge: "✓ Статус в Shizuku должен быть: «Shizuku запущен (UID 2000)»",
+
+        step2_title: "Установка OpenIV Loader",
+        step2_desc: "Скачайте и установите <code class=\"text-amber-400 text-xs font-bold\">OpenIVLoader.apk</code>. При первом открытии нажмите <b>«Запросить доступ Shizuku»</b> и выберите <b>«Разрешать всегда»</b>. Выдайте разрешение «Отображение поверх других приложений» для работы оверлея трейнера.",
+        step2_btn: "<span>📥 Скачать OpenIVLoader.apk (922 KB)</span>",
+
+        step3_title: "Подготовка DLC архива машины (x64 → android)",
+        step3_desc: "Скачайте архив любой машины (например, с сайта GTA5-Mods). Откройте файл <b>dlc.rpf</b> (через встроенный в лоадер RPF Редактор или OpenIV на ПК) и <b>переименуйте внутреннюю папку:</b>",
+        step3_dlclist_note: "Затем в файле <code class=\"text-amber-400 text-xs\">dlclist.xml</code> (расположенном внутри <code class=\"text-xs text-gray-300\">mods/update/update.rpf/common/data/</code>) добавьте строчку с именем авто: <code class=\"text-amber-300 text-xs\">&lt;Item&gt;dlcpacks:/delorean/&lt;/Item&gt;</code>.",
+
+        step4_title: "Размещение файлов в папке mods/",
+        step4_desc: "В любом файловом менеджере (ZArchiver) создайте папку <b>mods</b> рядом с файлами игры и поместите архив машины в каталог: <code class=\"text-xs text-amber-400\">mods/update/android/dlcpacks/&lt;имя_машины&gt;/dlc.rpf</code>. <b>Важно:</b> имя папки (например, <code class=\"text-xs text-amber-300\">delorean</code>) должно точно совпадать с записью в <code class=\"text-xs text-gray-300\">dlclist.xml</code>!",
+        step4_copy_btn: "Копировать структуру",
+
+        step5_title: "Исправление прав (если игра в Android/data)",
+        step5_desc: "В приложении OpenIV Loader перейдите в раздел <b>«⚙️ Настройки»</b> и нажмите кнопку <b>«🔑 Исправить права (chmod 777 на mods/)»</b>. Shizuku выдаст полный доступ игре к чтению скопированных файлов.",
+        step5_notice: "💡 <b>Важное примечание:</b> Исправлять права нужно <u>только</u> если файлы игры лежат в каталоге <code class=\"text-amber-200\">Android/data/com.thegwchr.fuzzy</code>. Если ваша игра расположена в общедоступной папке (например, <code class=\"text-amber-200\">/storage/emulated/0/games/gta5/game/</code>), права исправлять не требуется!",
+
+        step6_title: "Запуск игры и спавн авто",
+        step6_desc: "В OpenIV Loader нажмите <b>«Включить моды и запустить игру»</b>. После загрузки GTA V коснитесь плавающей кнопки <b>BHAI</b> ➔ вкладка <b>МАШИНА</b> ➔ нажмите <b>«➕ УПРАВЛЕНИЕ СПИСКОМ МАШИН»</b>, введите название и код модели (например <code class=\"text-xs text-amber-300\">delorean</code>). Нажмите на машину — она мгновенно появится перед вами!",
+
+        faq_badge: "Ответы на вопросы",
+        faq_title: "Часто задаваемые вопросы",
+        q1: "Действительно ли не нужны Root-права?",
+        a1: "Да, на 100%! Лоадер использует системный сервис Shizuku, который исполняет команды с правами привилегированного пользователя Android Shell (UID 2000). Это абсолютно безопасно, не требует разблокировки загрузчика и не ломает Knox/банковские приложения.",
+        q2: "Могут ли повредиться оригинальные файлы игры?",
+        a2: "Нет. Нативная библиотека перенаправляет вызовы только во время работы лоадера. Сам файл update.rpf на диске не перезаписывается. Если запустить GTA V обычным ярлыком с экрана — запустится чистая оригинальная игра.",
+        q3: "Где сохраняется список добавленных мной машин?",
+        a3: "Список сохраняется во внутреннем хранилище SharedPreferences приложения и синхронно экспортируется в текстовый файл: <code class=\"text-amber-400 text-xs\">/sdcard/Android/data/com.thegwchr.fuzzy/files/game/custom_vehicles.txt</code>. Вы можете редактировать его в любом блокноте!",
+        q4: "Поддерживаются ли файлы игры в других папках (например, games/gta5)?",
+        a4: "Да! Движок GTA V обращается к игровым ресурсам по относительным путям. Поэтому если рядом с вашей рабочей папкой игры находится папка mods/, все модификации автоматически подхватываются независимо от пути.",
+        q5: "Подходят ли Add-On машины с ПК-версии (с сайта GTA5-Mods)?",
+        a5: "Да, на 100%! Любая Add-On машина, созданная для ПК, полностью совместима с мобильным портом GTA V. Главное обязательное условие: внутри файла <code>dlc.rpf</code> переименуйте внутреннюю папку <code>x64</code> в <code>android</code>, скопируйте архив в <code>mods/update/android/dlcpacks/&lt;имя&gt;/dlc.rpf</code> и пропишите имя в <code>dlclist.xml</code>.",
+
+        cta_title: "Готовы прокачать свою GTA V на Android?",
+        cta_desc: "Скачивайте новейшую версию OpenIV Loader & Bhai Ultra Trainer и наслаждайтесь любимыми модами прямо сейчас.",
+        cta_btn: "Скачать OpenIVLoader.apk (v2.4)",
+        cta_info: "Размер: 922 КБ • Пакет: com.openiv.gtavloader",
+
+        footer_rights: "OpenIV GTA V Android Loader & Bhai Ultra Trainer • 2026",
+        footer_disclaimer: "GTA V является зарегистрированной торговой маркой Rockstar Games и Take-Two Interactive. Данный проект является независимой модификацией исследовательского характера и не связан с официальными правообладателями."
+      },
+
+      en: {
+        nav_features: "Features",
+        nav_trainer: "Trainer",
+        nav_screenshots: "Screenshots",
+        nav_install: "Installation",
+        nav_faq: "FAQ",
+        btn_download: "Download APK",
+        btn_download_mobile: "Download APK (922 KB)",
+
+        hero_pill: "100% NON-ROOT • SHIZUKU POWERED • ANDROID 11–15+",
+        hero_title_1: "Mods & Add-On Cars",
+        hero_title_2: "in GTA V Android",
+        hero_desc: "Complete mod loader supporting the isolated <code class=\"text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20\">mods/</code> folder without altering original game archives, featuring the in-game floating <b>Bhai Ultra Trainer</b> overlay. Original game files remain 100% untouched!",
+        hero_btn_apk: "Download OpenIVLoader.apk",
+        hero_btn_guide: "Step-by-Step Guide",
+
+        metric_1: "No APK tampering",
+        metric_2: "Isolated mods/ Folder",
+        metric_3: "Vehicle Categories",
+        metric_4: "Car List Persistence",
+
+        trainer_badge: "Built-In Trainer",
+        trainer_title: "Bhai Ultra Trainer Features",
+        trainer_desc: "Complete in-game overlay inspired by PC trainers like Menyoo, accessible directly while playing with a single tap.",
+
+        tf1_title: "Vehicles & Spawner",
+        tf1_subtitle: "Vehicle Spawner & Management",
+        tf1_desc: "Instant access to all vanilla and custom add-on vehicles with instant spawning right in front of the player or directly in the driver's seat.",
+        tf1_li1: "<b>16 vanilla categories:</b> supercars, sports cars, muscle, motorcycles, off-road, aircraft, and boats.",
+        tf1_li2: "<b>Add-On Vehicle Manager:</b> add and save custom car models (Lada, BMW, Mercedes) permanently on your device.",
+        tf1_li3: "<b>Instant Repair:</b> full visual and engine restoration without having to drive to Los Santos Customs.",
+        tf1_li4: "<b>Service Tools:</b> flip overturned vehicle back upright and quickly clean up unwanted nearby vehicles.",
+        tf1_tag: "500+ Vehicle Models",
+
+        tf2_title: "Player & Combat",
+        tf2_subtitle: "Player, God Mode & Weapons",
+        tf2_desc: "Full invulnerability and complete combat options for unrestricted free-roam and mod testing.",
+        tf2_li1: "<b>God Mode:</b> complete invincibility against bullets, explosions, falls from heights, and high-speed crashes.",
+        tf2_li2: "<b>Health & Armor:</b> instant 100% recovery for player health and body armor in a single tap.",
+        tf2_li3: "<b>Wanted Level:</b> clear police stars to 0 ('Never Wanted') or instantly switch to 1–5 stars.",
+        tf2_li4: "<b>Weapons & Ammo:</b> full arsenal unlocked with maximum ammunition capacity.",
+        tf2_tag: "Full Invulnerability",
+
+        tf3_title: "World, Weather & Time",
+        tf3_subtitle: "World Environment & Time",
+        tf3_desc: "Precise control over the Los Santos atmosphere: customize weather conditions and game clock in real time.",
+        tf3_li1: "<b>Weather Controls:</b> switch immediately between clear, extra sunny, stormy, rain, foggy, or overcast.",
+        tf3_li2: "<b>Time of Day:</b> shift smoothly between sunrise, noon, golden hour, and midnight, or freeze the clock.",
+        tf3_li3: "<b>Traffic Clearance:</b> instantly remove stuck street traffic for unobstructed vehicle testing.",
+        tf3_li4: "<b>FPS Stability:</b> optimized low-overhead native hooks preventing game stutter or FPS dips.",
+        tf3_tag: "Dynamic Atmosphere",
+
+        tf4_title: "Teleportation & Locations",
+        tf4_subtitle: "Teleportation & Fast Travel",
+        tf4_desc: "Instant travel to any coordinates across San Andreas on foot or seamlessly while seated in your car.",
+        tf4_li1: "<b>GPS Waypoint Teleport:</b> drop a marker pin on your map and tap Waypoint to travel there instantly.",
+        tf4_li2: "<b>Landmark Hotspots:</b> instant warp to LS International Airport, Del Perro Pier, Mount Chiliad, Observatory, etc.",
+        tf4_li3: "<b>Vehicle Preservation:</b> seamlessly teleports both you and your vehicle together without despawning.",
+        tf4_li4: "<b>Safe Grounding:</b> automatic terrain altitude (Z-axis) compensation preventing falling through geometry.",
+        tf4_tag: "GPS Navigation",
+
+        feat_badge: "Technology & Features",
+        feat_title: "Why OpenIV Loader is Unique",
+        feat_desc: "Engineered specifically for Android 11–15+ process isolation architectures adhering to OpenIV PC standards.",
+
+        f1_title: "100% Non-Root via Shizuku",
+        f1_desc: "No root, no magisk, no kernel patching, and zero risk to brick your phone. Full process permissions are safely managed by Shizuku (UID 2000).",
+        f1_tag: "UID: 2000 (shell privileged)",
+
+        f2_title: "Official mods/ Folder Support",
+        f2_desc: "Native library <code class=\"text-amber-400 text-xs\">libopeniv.so</code> automatically redirects game requests to the isolated <code class=\"text-xs text-amber-400\">mods/</code> directory. Original <code class=\"text-xs text-gray-300\">update.rpf</code> is never overwritten.",
+        f2_tag: "Zero-Overwrite Protection",
+
+        f3_title: "Custom Add-On Car Manager",
+        f3_desc: "Build and manage your personal car list. Type any model code (Granta, Priora, E55) — it is persistently saved and spawns in a single tap.",
+        f3_tag: "custom_vehicles.txt sync",
+
+        f4_title: "Bhai Ultra In-Game Overlay",
+        f4_desc: "Floating in-game cheat trainer: 16 vehicle categories, instant search, vehicle repair, upright flip, godmode, weapons, and GPS teleport.",
+        f4_tag: "Menyoo-Style UI Overlay",
+
+        f5_title: "Built-in RPF Archive Editor",
+        f5_desc: "No PC needed to inspect or modify archives: browse RPF directory trees and edit XML/META game configs directly on your smartphone.",
+        f5_tag: "Standalone RPF Parser",
+
+        f6_title: "Clean Launch by Default",
+        f6_desc: "Launching GTA V normally from your phone home screen always runs 100% stock vanilla game. Mod libraries and overlay only engage when started through OpenIV Loader.",
+        f6_tag: "Zero-Footprint On Demand",
+
+        screen_badge: "In-Game Gallery",
+        screen_title: "Real In-Game Modding",
+        screen_desc: "Screenshots of spawned add-on cars and the live trainer overlay on GTA V Android.",
+        s1_title: "Lada Granta FL",
+        s1_sub: "Custom vehicle model with working interior and full damages",
+        s2_title: "Mercedes-Benz E55 AMG",
+        s2_sub: "High-resolution DLC package (dlc.rpf)",
+        s3_title: "Vehicle Spawner Menu",
+        s3_sub: "16 categories of stock cars plus custom Add-On section",
+        s4_title: "In-Game Trainer Overlay",
+        s4_sub: "Fast in-game overlay without pausing or interrupting gameplay",
+
+        inst_badge: "Step-by-Step Guide",
+        inst_title: "Mod Installation Guide",
+        inst_desc: "Complete guide to preparing DLC archives, setting up the mods/ folder, and spawning custom cars in GTA V Android.",
+
+        step1_title: "Start Shizuku Service",
+        step1_desc: "Install the official <b>Shizuku</b> app (from Google Play or GitHub). On Android 11+, launch it directly on your phone using <b>'Wireless Debugging'</b> over Wi-Fi. Tap 'Start' in Shizuku.",
+        step1_badge: "✓ Shizuku status must show: 'Shizuku is running (UID 2000)'",
+
+        step2_title: "Install OpenIV Loader",
+        step2_desc: "Download and install <code class=\"text-amber-400 text-xs font-bold\">OpenIVLoader.apk</code>. Open it, tap <b>'Request Shizuku Access'</b>, and grant <b>'Allow always'</b>. Grant 'Display over other apps' permission for the trainer.",
+        step2_btn: "<span>📥 Download OpenIVLoader.apk (922 KB)</span>",
+
+        step3_title: "Prepare Vehicle DLC (x64 → android)",
+        step3_desc: "Download any Add-On vehicle (e.g. from GTA5-Mods). Open the <b>dlc.rpf</b> archive (using built-in RPF Editor or PC OpenIV) and <b>rename the internal folder:</b>",
+        step3_dlclist_note: "In your <code class=\"text-amber-400 text-xs\">dlclist.xml</code> (inside <code class=\"text-xs text-gray-300\">mods/update/update.rpf/common/data/</code>), add the vehicle entry: <code class=\"text-amber-300 text-xs\">&lt;Item&gt;dlcpacks:/delorean/&lt;/Item&gt;</code>.",
+
+        step4_title: "Place Files in mods/ Folder",
+        step4_desc: "In any file manager (ZArchiver), create the <b>mods</b> directory next to game files and place the vehicle archive into: <code class=\"text-xs text-amber-400\">mods/update/android/dlcpacks/&lt;vehicle_name&gt;/dlc.rpf</code>. <b>Important:</b> The folder name (e.g. <code class=\"text-xs text-amber-300\">delorean</code>) must match your dlclist.xml entry!",
+        step4_copy_btn: "Copy Structure",
+
+        step5_title: "Fix Permissions (if in Android/data)",
+        step5_desc: "In OpenIV Loader, tap <b>'⚙️ Settings'</b> and press <b>'🔑 Fix Permissions (chmod 777 on mods/)'</b>. Shizuku will grant full read/write permissions for game access in Android's protected storage.",
+        step5_notice: "💡 <b>Important Note:</b> Fixing permissions is <u>only</u> required when game files are located in <code class=\"text-amber-200\">Android/data/com.thegwchr.fuzzy</code>. If your game is stored in an open folder (e.g. <code class=\"text-amber-200\">/storage/emulated/0/games/gta5/game/</code>), fixing permissions is not needed!",
+
+        step6_title: "Launch Game & Spawn Vehicle",
+        step6_desc: "Tap <b>'Enable Mods & Launch Game'</b>. Once loaded into GTA V, tap the floating <b>BHAI</b> button ➔ open <b>VEHICLE</b> tab ➔ tap <b>'➕ MANAGE CAR LIST'</b>, enter the car name and model code (e.g. <code class=\"text-xs text-amber-300\">delorean</code>). Tap your car to spawn it instantly!",
+
+        faq_badge: "FAQ",
+        faq_title: "Frequently Asked Questions",
+        q1: "Is Root truly not required?",
+        a1: "Yes, 100%! The loader communicates with the official Shizuku service running with Android Shell privileges (UID 2000). It does not require bootloader unlocking or root and never breaks Knox or banking apps.",
+        q2: "Can original game files get corrupted?",
+        a2: "No. The native library redirects file requests only during loader sessions. The update.rpf archive on storage is never overwritten. Opening GTA V normally always launches the clean vanilla game.",
+        q3: "Where is my custom vehicle list saved?",
+        a3: "The list is persistently saved in app SharedPreferences and mirrored to <code class=\"text-amber-400 text-xs\">/sdcard/Android/data/com.thegwchr.fuzzy/files/game/custom_vehicles.txt</code>. You can edit it with any text editor!",
+        q4: "Are custom game paths (e.g. games/gta5) supported?",
+        a4: "Yes! The GTA V game engine resolves game assets using relative paths. As long as your mods/ folder is placed alongside the game folder, all modifications load automatically regardless of path.",
+        q5: "Are PC vehicle mods from GTA5-Mods compatible?",
+        a5: "Yes, absolutely! All Add-On vehicles made for PC GTA V work on Android. The single mandatory requirement is opening <code>dlc.rpf</code> and renaming the internal folder from <code>x64</code> to <code>android</code>, placing the archive in <code>mods/update/android/dlcpacks/&lt;name&gt;/dlc.rpf</code>, and adding the name to <code>dlclist.xml</code>.",
+
+        cta_title: "Ready to upgrade your GTA V Android?",
+        cta_desc: "Download the latest release of OpenIV Loader & Bhai Ultra Trainer and enjoy your favorite mods today.",
+        cta_btn: "Download OpenIVLoader.apk (v2.4)",
+        cta_info: "Size: 922 KB • Package: com.openiv.gtavloader",
+
+        footer_rights: "OpenIV GTA V Android Loader & Bhai Ultra Trainer • 2026",
+        footer_disclaimer: "GTA V is a registered trademark of Rockstar Games and Take-Two Interactive. This project is an independent educational/research modification not affiliated with the original publishers."
+      }
+    };
+
+    let currentLang = 'ru';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.getElementById('langFlag').textContent = lang === 'ru' ? '🇷🇺' : '🇬🇧';
+      document.getElementById('langText').textContent = lang.toUpperCase();
+      
+      const dict = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          el.innerHTML = dict[key];
+        }
+      });
+
+      // Update tree code comment hint
+      const treeEl = document.getElementById('folderTree');
+      if (treeEl) {
+        if (lang === 'en') {
+          treeEl.textContent = `mods/\n├── update/\n│   ├── update.rpf               (dlclist.xml)\n│   └── android/dlcpacks/\n│       ├── delorean/dlc.rpf     (folder matches dlclist.xml)\n│       └── benze55/dlc.rpf      (x64 renamed to android)\n└── common.rpf`;
+        } else {
+          treeEl.textContent = `mods/\n├── update/\n│   ├── update.rpf               (с прописанным dlclist.xml)\n│   └── android/dlcpacks/\n│       ├── delorean/dlc.rpf     (папка совпадает с dlclist.xml)\n│       └── benze55/dlc.rpf      (x64 переименован в android)\n└── common.rpf`;
+        }
+      }
+    }
+
+    document.getElementById('langToggle').addEventListener('click', () => {
+      setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+    });
+
+    // Mobile Hamburger Toggle
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('hidden');
+    });
+
+    // Copy Folder Structure
+    function copyFolderStructure() {
+      const text = `mods/\n├── update/\n│   ├── update.rpf\n│   └── android/dlcpacks/\n│       ├── delorean/dlc.rpf\n│       └── benze55/dlc.rpf\n└── common.rpf`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = currentLang === 'ru' ? 'Скопировано! ✓' : 'Copied! ✓';
+        setTimeout(() => {
+          btn.textContent = currentLang === 'ru' ? 'Копировать структуру' : 'Copy Structure';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
